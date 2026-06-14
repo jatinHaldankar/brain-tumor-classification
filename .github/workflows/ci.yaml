@@ -35,8 +35,8 @@ jobs:
           MLFLOW_TRACKING_PASSWORD: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
         run: |
           dvc remote modify origin --local auth basic
-          dvc remote modify origin --local user $MLFLOW_TRACKING_USERNAME
-          dvc remote modify origin --local password $MLFLOW_TRACKING_PASSWORD
+          dvc remote modify origin --local user "$MLFLOW_TRACKING_USERNAME"
+          dvc remote modify origin --local password "$MLFLOW_TRACKING_PASSWORD"
           dvc pull artifacts/training/model.h5 -r origin
 
       - name: Build Docker Image (Dry Run)

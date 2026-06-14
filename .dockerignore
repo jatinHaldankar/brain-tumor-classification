@@ -12,8 +12,6 @@ logs/
 uploads/
 model/
 
-# Ignore all artifacts (like raw datasets) to save space
-artifacts/
-
-# EXCEPT the trained model file, which we explicitly need inside the container
-!artifacts/training/model.h5
+# Ignore massive datasets but KEEP the trained model
+artifacts/data_ingestion/
+artifacts/prepare_base_model/
