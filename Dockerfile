@@ -14,14 +14,12 @@ WORKDIR /app
 # Install uv for fast Python package management
 RUN pip install --no-cache-dir uv
 
-# Copy only the dependency requirements first to cache them
-COPY pyproject.toml .
-
-# Install dependencies directly into the system python environment
-RUN uv pip install --system -e .
-
-# Copy the rest of the application
+# Copy the entire application first so the package source code is available
 COPY . .
+
+# Install dependencies and the package into the system python environment
+# (We remove the -e flag because we don't need editable mode in production)
+RUN uv pip install --system .
 
 # Expose the port FastAPI runs on
 EXPOSE 8080
