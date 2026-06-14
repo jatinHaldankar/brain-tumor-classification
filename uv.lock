@@ -679,14 +679,15 @@ wheels = [
 [[package]]
 name = "chest-cancer-classification"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "dvc" },
     { name = "ensure" },
     { name = "flask" },
     { name = "flask-cors" },
-    { name = "gdown" },
     { name = "joblib" },
+    { name = "kaggle", version = "1.7.4.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "kaggle", version = "2.2.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "matplotlib" },
     { name = "mlflow" },
     { name = "notebook" },
@@ -697,6 +698,7 @@ dependencies = [
     { name = "scipy", version = "1.15.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "scipy", version = "1.17.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "seaborn" },
+    { name = "setuptools" },
     { name = "tensorflow-cpu" },
     { name = "tqdm" },
     { name = "types-pyyaml" },
@@ -708,8 +710,8 @@ requires-dist = [
     { name = "ensure", specifier = "==1.0.2" },
     { name = "flask", specifier = ">=2.3.3" },
     { name = "flask-cors", specifier = ">=6.0.2" },
-    { name = "gdown", specifier = ">=6.0.0" },
     { name = "joblib", specifier = ">=1.5.3" },
+    { name = "kaggle", specifier = ">=1.7.4.5" },
     { name = "matplotlib", specifier = ">=3.10.9" },
     { name = "mlflow", specifier = "==2.2.2" },
     { name = "notebook", specifier = ">=7.5.6" },
@@ -719,6 +721,7 @@ requires-dist = [
     { name = "pyyaml", specifier = ">=6.0.3" },
     { name = "scipy", specifier = ">=1.15.3" },
     { name = "seaborn", specifier = ">=0.13.2" },
+    { name = "setuptools", specifier = ">=82.0.1" },
     { name = "tensorflow-cpu", specifier = "==2.15.0" },
     { name = "tqdm", specifier = ">=4.67.3" },
     { name = "types-pyyaml", specifier = ">=6.0.12.20260518" },
@@ -1697,22 +1700,6 @@ wheels = [
 ]
 
 [[package]]
-name = "gdown"
-version = "6.0.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "beautifulsoup4" },
-    { name = "filelock" },
-    { name = "requests", extra = ["socks"] },
-    { name = "tqdm" },
-    { name = "typing-extensions", marker = "python_full_version < '3.12'" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/72/01/9e0280ba321f73295374765dc3c0b1e03058188a592a48a321376f9eb092/gdown-6.0.0.tar.gz", hash = "sha256:1f1f735a174ef3599fca95786aafac1219b9d85d4c729ccb95e674996c47fd44", size = 262729, upload-time = "2026-04-12T06:37:40.182Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/91/fd/a382bb6684b1fdbe5cd19aa980a04a67f6c91efd0e1e627f93614fe2d24e/gdown-6.0.0-py3-none-any.whl", hash = "sha256:c82d39a6b09ed7778012515c2fa4ab4dc36d7789300cd0b16b87d3a3e4a09955", size = 18243, upload-time = "2026-04-12T06:37:38.209Z" },
-]
-
-[[package]]
 name = "gitdb"
 version = "4.0.12"
 source = { registry = "https://pypi.org/simple" }
@@ -2480,6 +2467,99 @@ wheels = [
 ]
 
 [[package]]
+name = "jupytext"
+version = "1.19.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "markdown-it-py", marker = "python_full_version >= '3.11'" },
+    { name = "mdit-py-plugins", marker = "python_full_version >= '3.11'" },
+    { name = "nbformat", marker = "python_full_version >= '3.11'" },
+    { name = "packaging", marker = "python_full_version >= '3.11'" },
+    { name = "pyyaml", marker = "python_full_version >= '3.11'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ef/2d/15624c3d9440d85a280ff13d2d23afd989802f25470ac59932f4fef6f0c6/jupytext-1.19.3.tar.gz", hash = "sha256:713c3ed4441afe0f31474d28ea2e6b61a268c04c40fd78e5ccfd7f7ac9e9f766", size = 4305350, upload-time = "2026-05-17T09:09:29.294Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/aa/ec/d9be3bd1db141e76b2f525c265f70e66edd30a51a3307d8edf0ef1909c54/jupytext-1.19.3-py3-none-any.whl", hash = "sha256:acf75492f80895ad8e664fd8db1708b617008dd0e71c341a1abc3d0d07310ed0", size = 170579, upload-time = "2026-05-17T09:09:27.478Z" },
+]
+
+[[package]]
+name = "kaggle"
+version = "1.7.4.5"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version < '3.11' and sys_platform != 'win32'",
+    "python_full_version < '3.11' and platform_machine != 'AMD64' and sys_platform == 'win32'",
+    "python_full_version < '3.11' and platform_machine == 'AMD64' and sys_platform == 'win32'",
+]
+dependencies = [
+    { name = "bleach", marker = "python_full_version < '3.11'" },
+    { name = "certifi", marker = "python_full_version < '3.11'" },
+    { name = "charset-normalizer", marker = "python_full_version < '3.11'" },
+    { name = "idna", marker = "python_full_version < '3.11'" },
+    { name = "protobuf", marker = "python_full_version < '3.11'" },
+    { name = "python-dateutil", marker = "python_full_version < '3.11'" },
+    { name = "python-slugify", marker = "python_full_version < '3.11'" },
+    { name = "requests", marker = "python_full_version < '3.11'" },
+    { name = "setuptools", marker = "python_full_version < '3.11'" },
+    { name = "six", marker = "python_full_version < '3.11'" },
+    { name = "text-unidecode", marker = "python_full_version < '3.11'" },
+    { name = "tqdm", marker = "python_full_version < '3.11'" },
+    { name = "urllib3", marker = "python_full_version < '3.11'" },
+    { name = "webencodings", marker = "python_full_version < '3.11'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b1/02/b0c189a46531ea2b2691ae277508d2c80e5fd3d757083283c5cc27800ca8/kaggle-1.7.4.5.tar.gz", hash = "sha256:1d9821bd6a6a1470741c76d26495a18475b5a7bfe0c80b19191254b2735d41dd", size = 336100, upload-time = "2025-05-08T21:17:20.081Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/14/83/7f29c7abe0d5dc769dad7da993382c3e4239ad63e1dd58414d129e0a4da2/kaggle-1.7.4.5-py3-none-any.whl", hash = "sha256:9732afb1c073f14acc7e49dfab98456f887d10b735bcd6348bc1340e92393882", size = 181238, upload-time = "2025-05-08T21:17:18.245Z" },
+]
+
+[[package]]
+name = "kaggle"
+version = "2.2.0"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.14' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
+    "python_full_version >= '3.12' and python_full_version < '3.14' and platform_machine == 'x86_64' and sys_platform == 'darwin'",
+    "(python_full_version >= '3.14' and platform_machine != 'x86_64' and sys_platform == 'darwin') or (python_full_version >= '3.14' and sys_platform != 'darwin' and sys_platform != 'win32')",
+    "(python_full_version >= '3.12' and python_full_version < '3.14' and platform_machine != 'x86_64' and sys_platform == 'darwin') or (python_full_version >= '3.12' and python_full_version < '3.14' and sys_platform != 'darwin' and sys_platform != 'win32')",
+    "python_full_version == '3.11.*' and sys_platform != 'win32'",
+    "python_full_version >= '3.14' and platform_machine != 'AMD64' and sys_platform == 'win32'",
+    "python_full_version >= '3.12' and python_full_version < '3.14' and platform_machine != 'AMD64' and sys_platform == 'win32'",
+    "python_full_version >= '3.14' and platform_machine == 'AMD64' and sys_platform == 'win32'",
+    "python_full_version >= '3.12' and python_full_version < '3.14' and platform_machine == 'AMD64' and sys_platform == 'win32'",
+    "python_full_version == '3.11.*' and platform_machine != 'AMD64' and sys_platform == 'win32'",
+    "python_full_version == '3.11.*' and platform_machine == 'AMD64' and sys_platform == 'win32'",
+]
+dependencies = [
+    { name = "bleach", marker = "python_full_version >= '3.11'" },
+    { name = "jupytext", marker = "python_full_version >= '3.11'" },
+    { name = "kagglesdk", marker = "python_full_version >= '3.11'" },
+    { name = "packaging", marker = "python_full_version >= '3.11'" },
+    { name = "protobuf", marker = "python_full_version >= '3.11'" },
+    { name = "python-dateutil", marker = "python_full_version >= '3.11'" },
+    { name = "python-slugify", marker = "python_full_version >= '3.11'" },
+    { name = "requests", marker = "python_full_version >= '3.11'" },
+    { name = "tqdm", marker = "python_full_version >= '3.11'" },
+    { name = "urllib3", marker = "python_full_version >= '3.11'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/50/7a/4e3c1242bc193aad2fdb5fbae3130d0bcab925a36eab4fbf2e494152474e/kaggle-2.2.0.tar.gz", hash = "sha256:ea0cd0331bb3810ffc27955c0a4d5a61bf7dab0a5eb66c4a2135c8f04a9ab94a", size = 211654, upload-time = "2026-05-26T23:27:11.225Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/15/76/d9e0f07d79ce4040475c68b1214a3c377dd46311cd0184b24e0b339efe08/kaggle-2.2.0-py3-none-any.whl", hash = "sha256:45240a5569bf8fae8e292d245138020c810e7701e557aadd3b7f25a5c64819ac", size = 128473, upload-time = "2026-05-26T23:27:09.996Z" },
+]
+
+[[package]]
+name = "kagglesdk"
+version = "0.1.27"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "protobuf", marker = "python_full_version >= '3.11'" },
+    { name = "requests", marker = "python_full_version >= '3.11'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/c5/c0/857146ba30e777148030ce220c6a1bf0b2aa950b0126d9d542fd1f477384/kagglesdk-0.1.27.tar.gz", hash = "sha256:e377d7a6c189d396fcd80500c5dfff3d7089651a0c9bdfda9fb697ccaecea098", size = 179072, upload-time = "2026-05-29T22:50:31.15Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/92/43/bc8f89ff37486c60c4850cd80544e7d64765db734d24cbd6b6bcaba31de7/kagglesdk-0.1.27-py3-none-any.whl", hash = "sha256:5de170a9051d209e90df6f9d9873b55f2a9679d64156f1ac19c4622333812b0f", size = 229188, upload-time = "2026-05-29T22:50:29.778Z" },
+]
+
+[[package]]
 name = "keras"
 version = "2.15.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2887,6 +2967,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/bd/c0/9f7c9a46090390368a4d7bcb76bb87a4a36c421e4c0792cdb53486ffac7a/matplotlib_inline-0.2.2.tar.gz", hash = "sha256:72f3fe8fce36b70d4a5b612f899090cd0401deddc4ea90e1572b9f4bfb058c79", size = 8150, upload-time = "2026-05-08T17:33:33.49Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/41/09/5b161152e2d90f7b87f781c2e1267494aef9c32498df793f73ad0a0a494a/matplotlib_inline-0.2.2-py3-none-any.whl", hash = "sha256:3c821cf1c209f59fb2d2d64abbf5b23b67bcb2210d663f9918dd851c6da1fcf6", size = 9534, upload-time = "2026-05-08T17:33:32.055Z" },
+]
+
+[[package]]
+name = "mdit-py-plugins"
+version = "0.6.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "markdown-it-py", marker = "python_full_version >= '3.11'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/59/fc/f8d0863f8862f25602c0404d75568e89fb6b4109804645e5cdfb1be5cf56/mdit_py_plugins-0.6.1.tar.gz", hash = "sha256:a2bca0f039f39dbd35fb74ae1b5f998608c437463371f0ff7f49a19a17a114d0", size = 56114, upload-time = "2026-05-13T09:03:38.91Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a5/69/6da5581c6a7fede7dc261bf4e67d6adca4196f176b43288b55b3db395b6e/mdit_py_plugins-0.6.1-py3-none-any.whl", hash = "sha256:214c82fb2ac524472ab6a5bcab1de80f73b50443e187f401bfd77efbc7c6481d", size = 66663, upload-time = "2026-05-13T09:03:37.76Z" },
 ]
 
 [[package]]
@@ -4229,15 +4321,6 @@ wheels = [
 ]
 
 [[package]]
-name = "pysocks"
-version = "1.7.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/bd/11/293dd436aea955d45fc4e8a35b6ae7270f5b8e00b53cf6c024c83b657a11/PySocks-1.7.1.tar.gz", hash = "sha256:3f8804571ebe159c380ac6de37643bb4685970655d3bba243530d6558b799aa0", size = 284429, upload-time = "2019-09-20T02:07:35.714Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/8d/59/b4572118e098ac8e46e399a1dd0f2d85403ce8bbaad9ec79373ed6badaf9/PySocks-1.7.1-py3-none-any.whl", hash = "sha256:2725bd0a9925919b9b51739eea5f9e2bae91e83288108a9ad338b2e3a4435ee5", size = 16725, upload-time = "2019-09-20T02:06:22.938Z" },
-]
-
-[[package]]
 name = "python-box"
 version = "6.0.2"
 source = { registry = "https://pypi.org/simple" }
@@ -4277,6 +4360,18 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/f7/ff/3cc9165fd44106973cd7ac9facb674a65ed853494592541d339bdc9a30eb/python_json_logger-4.1.0.tar.gz", hash = "sha256:b396b9e3ed782b09ff9d6e4f1683d46c83ad0d35d2e407c09a9ebbf038f88195", size = 17573, upload-time = "2026-03-29T04:39:56.805Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/27/be/0631a861af4d1c875f096c07d34e9a63639560a717130e7a87cbc82b7e3f/python_json_logger-4.1.0-py3-none-any.whl", hash = "sha256:132994765cf75bf44554be9aa49b06ef2345d23661a96720262716438141b6b2", size = 15021, upload-time = "2026-03-29T04:39:55.266Z" },
+]
+
+[[package]]
+name = "python-slugify"
+version = "8.0.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "text-unidecode" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/87/c7/5e1547c44e31da50a460df93af11a535ace568ef89d7a811069ead340c4a/python-slugify-8.0.4.tar.gz", hash = "sha256:59202371d1d05b54a9e7720c5e038f928f45daaffe41dd10822f3907b937c856", size = 10921, upload-time = "2024-02-08T18:32:45.488Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a4/62/02da182e544a51a5c3ccf4b03ab79df279f9c60c5e82d5e8bec7ca26ac11/python_slugify-8.0.4-py2.py3-none-any.whl", hash = "sha256:276540b79961052b66b7d116620b36518847f52d5fd9e3a70164fc8c50faa6b8", size = 10051, upload-time = "2024-02-08T18:32:43.911Z" },
 ]
 
 [[package]]
@@ -4509,11 +4604,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ac/c3/e2a2b89f2d3e2179abd6d00ebd70bff6273f37fb3e0cc209f48b39d00cbf/requests-2.34.2.tar.gz", hash = "sha256:f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed", size = 142856, upload-time = "2026-05-14T19:25:27.735Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/a0/f4/c67b0b3f1b9245e8d266f0f112c500d50e5b4e83cb6f3b71b6528104182a/requests-2.34.2-py3-none-any.whl", hash = "sha256:2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0", size = 73075, upload-time = "2026-05-14T19:25:26.443Z" },
-]
-
-[package.optional-dependencies]
-socks = [
-    { name = "pysocks" },
 ]
 
 [[package]]
@@ -5536,6 +5626,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/8a/11/965c6fd8e5cc254f1fe142d547387da17a8ebfd75a3455f637c663fb38a0/terminado-0.18.1.tar.gz", hash = "sha256:de09f2c4b85de4765f7714688fff57d3e75bad1f909b589fde880460c753fd2e", size = 32701, upload-time = "2024-03-12T14:34:39.026Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6a/9e/2064975477fdc887e47ad42157e214526dcad8f317a948dee17e1659a62f/terminado-0.18.1-py3-none-any.whl", hash = "sha256:a4468e1b37bb318f8a86514f65814e1afc977cf29b3992a4500d9dd305dcceb0", size = 14154, upload-time = "2024-03-12T14:34:36.569Z" },
+]
+
+[[package]]
+name = "text-unidecode"
+version = "1.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/ab/e2/e9a00f0ccb71718418230718b3d900e71a5d16e701a3dae079a21e9cd8f8/text-unidecode-1.3.tar.gz", hash = "sha256:bad6603bb14d279193107714b288be206cac565dfa49aa5b105294dd5c4aab93", size = 76885, upload-time = "2019-08-30T21:36:45.405Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a6/a5/c0b6468d3824fe3fde30dbb5e1f687b291608f9473681bbf7dabbf5a87d7/text_unidecode-1.3-py2.py3-none-any.whl", hash = "sha256:1311f10e8b895935241623731c2ba64f4c455287888b18189350b67134a822e8", size = 78154, upload-time = "2019-08-30T21:37:03.543Z" },
 ]
 
 [[package]]

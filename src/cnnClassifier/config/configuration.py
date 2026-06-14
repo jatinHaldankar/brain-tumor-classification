@@ -1,7 +1,10 @@
 from cnnClassifier.constants import *
 from cnnClassifier.utils.common import read_yaml, create_directories
-from cnnClassifier.entity.config_entity import DataIngestionConfig, PrepareBaseModelConfig, TrainingConfig
+from cnnClassifier.entity.config_entity import DataIngestionConfig, PrepareBaseModelConfig, TrainingConfig, EvaluationConfig
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class ConfigurationManager:
     def __init__(self,config_filepath = CONFIG_FILE_PATH,params_filepath = PARAMS_FILE_PATH):
@@ -39,7 +42,8 @@ class ConfigurationManager:
         training = self.config.training
         prepare_base_model = self.config.prepare_base_model
         params = self.params
-        training_data = os.path.join(self.config.data_ingestion.unzip_dir, "Chest-CT-Scan-data")
+        training_data = self.config.training.training_data
+
         
         create_directories([Path(training.root_dir)])
 
@@ -55,3 +59,13 @@ class ConfigurationManager:
         )
 
         return training_config
+    
+    def get_model_evaluation_config(self):
+        return EvaluationConfig(
+            path_of_model = self.config.training.trained_model_path,
+            testing_data = self.config.testing.testing_data,
+            all_params = self.params,
+            mlflow_uri = os.getenv("MLFLOW_TRACKING_URI"),
+            params_image_size = self.params.IMAGE_SIZE,
+            params_batch_size = self.params.BATCH_SIZE
+        )

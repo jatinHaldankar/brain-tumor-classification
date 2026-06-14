@@ -220,3 +220,12 @@ __marimo__/
 # Project specific folders
 artifacts/
 logs/
+uploads/
+model/
+
+# Dev/scratch files
+patch.py
+update_nb.py
+overrides.txt
+template.py
+scores.json

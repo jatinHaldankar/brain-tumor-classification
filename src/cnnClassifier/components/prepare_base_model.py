@@ -47,8 +47,8 @@ class PrepareBaseModel:
         self.full_model = self._prepare_full_model(
             model=self.model,
             classes=self.config.params_classes,
-            freeze_all=True,
-            freeze_till=None,
+            freeze_all=False,       # Don't freeze everything — we want to fine-tune
+            freeze_till=15,         # Freeze layers 0-14 (blocks 1-4), unfreeze block5 (layers 15-18)
             learning_rate=self.config.params_learning_rate
         )
         self.full_model.save(self.config.updated_base_model_path)

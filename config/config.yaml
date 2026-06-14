@@ -2,7 +2,7 @@ artifacts_root : artifacts
 
 data_ingestion :
     root_dir : artifacts/data_ingestion
-    source_url :  https://drive.google.com/file/d/1z0mreUtRmR-P-magILsDR3T7M6IkGXtY/view?usp=sharing
+    source_url :  masoudnickparvar/brain-tumor-mri-dataset
     local_data_file :  artifacts/data_ingestion/data.zip
     unzip_dir : artifacts/data_ingestion
 
@@ -17,3 +17,7 @@ prepare_base_model:
 training:
   root_dir: artifacts/training
   trained_model_path: artifacts/training/model.h5
+  training_data: artifacts/data_ingestion/Training
+
+testing:
+  testing_data : artifacts/data_ingestion/Testing
