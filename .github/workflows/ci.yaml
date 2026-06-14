@@ -1,0 +1,44 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install uv and dependencies
+        run: |
+          pip install uv
+          uv pip install --system -e .
+
+      - name: Set up DVC
+        uses: iterative/setup-dvc@v1
+
+      - name: Pull Model using DVC
+        env:
+          MLFLOW_TRACKING_USERNAME: ${{ secrets.MLFLOW_TRACKING_USERNAME }}
+          MLFLOW_TRACKING_PASSWORD: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
+        run: |
+          dvc remote modify origin --local auth basic
+          dvc remote modify origin --local user $MLFLOW_TRACKING_USERNAME
+          dvc remote modify origin --local password $MLFLOW_TRACKING_PASSWORD
+          dvc pull artifacts/training/model.h5 -r origin
+
+      - name: Build Docker Image (Dry Run)
+        run: |
+          docker build -t brain-tumor-classifier:test .

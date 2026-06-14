@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brain Tumor MRI Classifier</title>
+  <meta name="description" content="AI-powered brain tumor MRI classification using deep learning. Upload an MRI scan to detect Glioma, Meningioma, Pituitary tumors, or No Tumor."/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="badge">🧠 Deep Learning · VGG16</div>
+    <h1>Brain Tumor MRI<br/>Classification</h1>
+    <p>Upload a brain MRI scan and our AI model will classify it into one of 4 categories with confidence scores.</p>
+  </header>
+
+  <div class="card">
+
+    <!-- Upload zone -->
+    <div id="upload-zone">
+      <input type="file" id="file-input" accept="image/*" aria-label="Upload MRI image"/>
+      <span class="icon">🧠</span>
+      <h3>Drop your MRI scan here</h3>
+      <p>or click to browse · JPG, PNG, JPEG supported</p>
+    </div>
+
+    <!-- Image preview -->
+    <div id="preview-wrapper">
+      <img id="preview-img" src="" alt="MRI preview"/>
+      <button id="clear-btn" title="Remove image" aria-label="Remove image">✕</button>
+    </div>
+
+    <!-- Analyse button -->
+    <button id="analyse-btn">Analyse MRI Scan →</button>
+
+    <!-- Loading -->
+    <div id="loading">
+      <div class="spinner"></div>
+      <p>Analysing scan with AI model…</p>
+    </div>
+
+    <!-- Error -->
+    <div id="error-box" role="alert"></div>
+
+    <!-- Results -->
+    <div id="results">
+      <div class="result-header" id="result-header">
+        <div class="label-group">
+          <div class="verdict">Diagnosis</div>
+          <div class="class-name" id="class-name">—</div>
+          <div class="severity-badge" id="severity-badge"></div>
+        </div>
+        <div class="confidence-ring">
+          <div class="pct" id="confidence-pct">—</div>
+          <div class="lbl">Confidence</div>
+        </div>
+      </div>
+
+      <div class="desc-box" id="desc-box"></div>
+
+      <div class="prob-section">
+        <h4>Class Probabilities</h4>
+        <div id="prob-bars"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="disclaimer">
+    ⚕️ This tool is for <strong>educational purposes only</strong> and is not a substitute for professional medical advice, diagnosis, or treatment.
+  </p>
+
+  <!-- Link to external JS -->
+  <script src="/static/script.js"></script>
+</body>
+</html>

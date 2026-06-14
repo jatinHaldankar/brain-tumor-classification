@@ -1,0 +1,19 @@
+.git
+.github
+.venv
+__pycache__
+*.pyc
+.env
+.dvc
+.dvcignore
+dvc.lock
+research/
+logs/
+uploads/
+model/
+
+# Ignore all artifacts (like raw datasets) to save space
+artifacts/
+
+# EXCEPT the trained model file, which we explicitly need inside the container
+!artifacts/training/model.h5
