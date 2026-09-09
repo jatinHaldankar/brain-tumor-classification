@@ -67,6 +67,7 @@ KAGGLE_KEY=your_kaggle_api_key
 MLFLOW_TRACKING_URI=https://dagshub.com/jatinHaldankar/brain-tumor-classification.mlflow
 MLFLOW_TRACKING_USERNAME=jatinHaldankar
 MLFLOW_TRACKING_PASSWORD=your_dagshub_token
+CONFIDENT_API_KEY=your_confident_ai_api_key
 ```
 
 ### 5. Run the pipeline
