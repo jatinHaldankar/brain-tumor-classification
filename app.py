@@ -1,5 +1,6 @@
 import os
 import uuid
+from typing import Optional
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -8,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from cnnClassifier.utils.common import decodeImage
 from cnnClassifier.pipeline.prediction import PredictionPipeline
+from cnnClassifier.tracing import configure_confident_tracing, observe, update_current_trace
 
 app = FastAPI(title="Brain Tumor MRI Classifier")
 
@@ -30,9 +32,11 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # Load model once at startup so the first request isn't slow
 pipeline = PredictionPipeline()
 pipeline._load_model()
+configure_confident_tracing()
 
 class ImageRequest(BaseModel):
     image: str
+    testCaseId: Optional[str] = None
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
@@ -40,17 +44,25 @@ async def index(request: Request):
     return templates.TemplateResponse(request=request, name="index.html")
 
 @app.post("/predict")
+@observe()
 async def predict(data: ImageRequest):
     """
     Accepts a base64-encoded image in the request body,
     saves it temporarily, runs the model, deletes the file, and returns JSON.
     """
     try:
+        update_current_trace(
+            input={"has_image": bool(data.image), "route": "/predict"},
+            metadata={"route": "/predict"},
+            test_case_id=data.testCaseId,
+        )
+
         # Save the base64 image to a unique temp file to avoid collisions
         img_filename = os.path.join(UPLOAD_FOLDER, f"{uuid.uuid4()}.jpg")
         decodeImage(data.image, img_filename)
 
         result = pipeline.predict(img_filename)
+        update_current_trace(output=result)
 
         # Clean up — don't keep user images on disk
         if os.path.exists(img_filename):
@@ -59,6 +71,7 @@ async def predict(data: ImageRequest):
         return result
 
     except Exception as e:
+        update_current_trace(output={"error": str(e)})
         return {"error": str(e)}
 
 if __name__ == "__main__":

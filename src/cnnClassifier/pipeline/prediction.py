@@ -2,6 +2,7 @@ import numpy as np
 from tensorflow.keras.models import load_model
 from PIL import Image
 import os
+from cnnClassifier.tracing import observe, update_current_span
 
 
 CLASS_NAMES = ["Glioma", "Meningioma", "No Tumor", "Pituitary"]
@@ -58,6 +59,7 @@ class PredictionPipeline:
         img_array = np.expand_dims(img_array, axis=0)  # shape: (1, 224, 224, 3)
         return img_array
 
+    @observe(type="tool")
     def predict(self, img_path: str) -> dict:
         """
         Runs inference on a single image and returns:
@@ -79,9 +81,15 @@ class PredictionPipeline:
             for i in range(len(CLASS_NAMES))
         }
 
-        return {
+        result = {
             "prediction": predicted_class,
             "confidence": round(confidence, 2),
             "all_probs": all_probs,
             "info": CLASS_INFO[predicted_class],
         }
+        update_current_span(
+            input={"image_path": os.path.basename(img_path)},
+            output=result,
+            metadata={"model_path": self.model_path},
+        )
+        return result
